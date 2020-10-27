@@ -1,0 +1,15 @@
+ .modal {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .modal-container {
+    position: absolute;
+    width: 20%;
+    background: whitesmoke;
+    left: 5%;
+    top: 30%;
+    padding: 20px;
+    border-radius: 5;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  }

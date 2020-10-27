@@ -20,10 +20,10 @@ class App extends React.Component {
         this.authListener();
 
         //Below Needs to be Removed For Web Build
-        chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-           var currentUrl = tabs[0].url;
-            console.log(currentUrl)
-         });
+        // chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+        //    var currentUrl = tabs[0].url;
+        //     console.log(currentUrl)
+        //  });
     
     }
 
@@ -40,7 +40,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                {this.state.user ? (<Home/>) : (<Login/>)}
+                {this.state.user ? (<Home user= {this.state.user}/>) : (<Login/>)}
             </div>
         )
     }
