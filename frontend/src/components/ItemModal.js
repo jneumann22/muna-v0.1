@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from '../styles/Modal.scss';
+import Styles from '../styles/Modal.css';
 
 
 
@@ -38,8 +38,8 @@ class ItemModal extends React.Component {
         
 
           return (
-            <div className="modal">
-              <div className="modal-container">
+            <div className={Styles.modal}>
+              <div className={Styles.modal-container}>
                    
                        <input 
                        name="itemName"

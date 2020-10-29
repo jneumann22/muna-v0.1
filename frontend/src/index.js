@@ -5,6 +5,9 @@ import ReactDom from "react-dom";
 import fire from '../config/fire';
 import Login from './components/Login';
 import Home from './components/Home';
+import NewHome from "./components/NewHome";
+import background from "../assets/background.png"
+
 
 
 class App extends React.Component {
@@ -39,8 +42,8 @@ class App extends React.Component {
     
     render() {
         return (
-            <div>
-                {this.state.user ? (<Home user= {this.state.user}/>) : (<Login/>)}
+            <div style = {{backgroundImage: `url(${background})`, width: '400px', height: '600px'}}>
+                {this.state.user ? (<NewHome user= {this.state.user}/>) : (<Login/>)}
             </div>
         )
     }
