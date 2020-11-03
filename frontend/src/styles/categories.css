@@ -1,12 +1,43 @@
 .containerLogo {
-    margin: 0 auto;
-    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
 }
 
+.containerElem{
+    display: flex;
+    
+}
+
+.containerElem:first-child {
+    margin-right: auto;
+
+}
+.containerElem:last-child {
+    margin-left: auto;
+    visibility: hidden;
+}
 
 .logo{
     width: 200px;
     height: 65px;
+    margin-right: 20px;
+}
+.arrow {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    
+}
+
+.arrow:active {
+    opacity: 0.5;
+}
+
+.hiddenElem {
+    visibility: hidden;
 }
 
 .container {

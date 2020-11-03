@@ -1,8 +1,9 @@
  .modal {
     background: rgba(0, 0, 0, 0.6);
+    margin-top: 100px;
   }
-  .modal-container {
-    position: absolute;
+  /* .modalContainer {
+    position: relative;
     width: 20%;
     background: whitesmoke;
     left: 5%;
@@ -12,4 +13,170 @@
     -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  } */
+
+  .modalContainer {
+    position: relative;
+    float: left;
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    transform: translate(-50%, -120%);
+    background: whitesmoke;
+    border-radius: 30px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   }
+
+  .inputModal {
+    -webkit-appearance: none;
+  }
+
+  .inputHolder {
+    font-family: 'Poppins', sans-serif; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    background-color: whitesmoke;
+    
+  }
+
+  .formGroup {
+    position: relative;
+    padding: 15px 0 0;
+    margin-bottom: 50px;
+    width: 100%;
+  }
+
+  .formGroup label{
+    position:absolute;
+    top:0px;
+    left:0px;
+    font-size:16px;
+    color:#254373;	
+    transition: all 0.5s ease-in-out;
+  }
+  .formGroup input{ 
+    border:0;
+    border-bottom:1px solid #555;  
+    background:transparent;
+    width:100%;
+    padding:3px 0 5px 0;
+    font-size:16px;
+    color:#434547;
+  }
+  .formGroup input:focus{ 
+   border:none;	
+   outline:none;
+   border-bottom:1px solid #254373;	
+  }
+
+  .formGroup input:focus ~ label,
+  .formGroup {
+	top:-12px;
+	font-size:12px;
+	
+}
+
+
+.addButton {
+  background-color: #254373;
+  border: none;
+  color: whitesmoke;
+  padding: 10px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  font-size: 15px;
+}
+
+.addButton:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.addButton:active {
+    opacity: 0.5;
+}
+
+.close {
+  background:none;
+    border:none;
+    cursor: pointer;
+}
+
+.close:focus {
+  outline: 0;
+}
+
+.close:active {
+  opacity: 0.5;
+}
+
+.goBack {
+  width: 25px;
+  height: 25px;
+  padding: 10px 0 0 0;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.successDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.successMsg {
+  font-family: 'Poppins', sans-serif; 
+  font-size: 14px;
+  color: #254373;
+}
+
+.successBtn {
+  background-color: #254373;
+  border: none;
+  color: whitesmoke;
+  padding: 10px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+.successBtn:active {
+  opacity: 0.5;
+}
+
+.successBtn:focus {
+  outline: none;
+}
+
+.modalContainerTwo {
+  position: relative;
+  float: left;
+  left: 50%;
+  top: 50%;
+  padding: 30px;
+  transform: translate(-50%, -170%);
+  background: whitesmoke;
+  border-radius: 30px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+

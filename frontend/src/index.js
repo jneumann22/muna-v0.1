@@ -14,9 +14,10 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
-            user: {}
+            user: null,
+            attemptedLogin: false
         }
-
+        this.attemptedLogin = this.attemptedLogin.bind(this)
     }
 
     componentDidMount() {
@@ -30,22 +31,39 @@ class App extends React.Component {
     
     }
 
+    attemptedLogin() {
+        this.setState({
+            attemptedLogin: true
+        })
+    }
+
     authListener() {
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({user})
+                this.setState({user}, this.attemptedLogin)
             } else {
-                this.setState({user: null})
+                this.setState({user: null,
+                   
+                }, this.attemptedLogin)
             }
         })
     }
+
+  
     
     render() {
+        if (this.state.attemptedLogin === false) {
+            return (
+                <div style = {{backgroundImage: `url(${background})`, width: '360px', height: '600px'}}>
+                    </div>
+            )
+        } else if (this.state.attemptedLogin) {
         return (
-            <div style = {{backgroundImage: `url(${background})`, width: '400px', height: '600px'}}>
-                {this.state.user ? (<NewHome user= {this.state.user}/>) : (<Login/>)}
+            <div style = {{backgroundImage: `url(${background})`, width: '360px', height: '600px'}}>
+                {this.state.user  ? (<NewHome user= {this.state.user}/>) : (<Login/>)}
             </div>
         )
+        }
     }
 }
 

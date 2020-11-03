@@ -1,6 +1,8 @@
 import React from "react";
 import fire from "../../config/fire";
 import axios from "axios";
+import Styles from '../styles/login.css';
+import logo from  '../../assets/muna2.png'
 
 var localApi = "http://localhost:5000"
 
@@ -17,13 +19,12 @@ class Login extends React.Component {
         this.login = this.login.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.goTosignup = this.goTosignup.bind(this)
+        this.goToLogin = this.goToLogin.bind(this)
         this.signUp = this.signUp.bind(this)
 
     }
 
-    componentDidMount() {
-  
-    }
+
 
     login(e) {
         e.preventDefault()
@@ -73,32 +74,44 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={Styles.holder}>
+                <div>
+                    <img className = {Styles.logo} src = {logo} />
+                </div>
                 {this.state.login  ? 
-                <form>
+                <div className={Styles.componentHolder}>
+                    <div className={Styles.header}>login</div>
+                    <div className = {Styles.formGroup}>
                     <input
                     type = "email"
                     name = "email"
                     id = "email"
-                    placeholder = "enter Email"
+                    // placeholder = "enter Email"
                     onChange = {this.handleChange}
                     value = {this.state.email}
+                    className={Styles.input}
                     />
+                    <label>email</label>
+                    </div>
+                    <div className = {Styles.formGroup}>
                     <input
                     type = "password"
                     name = "password"
                     id = "password"
                     onChange = {this.handleChange}
-                    placeholder = "enter password"
+                    // placeholder = "enter password"
                     value = {this.state.password}
                     />
-                    <button onClick={this.login}>Login</button>
-                    <button onClick = {this.goTosignup}>Sign Up</button>
-                </form>
+                    <label>password</label>
+                    </div>
+                    <button className={Styles.loginBtn} onClick={this.login}>Login</button>
+                    <button className = {Styles.signUpBtn} onClick = {this.goTosignup}>Sign Up</button>
+                    
+                </div>
                :
-               <div>
-                   <h1>Sign Up</h1>
-                   <form>
+               <div className={Styles.componentHolder}>
+                   <div className={Styles.header}>sign up</div>
+                   <div className = {Styles.formGroup}>
                     <input
                     type = "email"
                     name = "email"
@@ -107,6 +120,9 @@ class Login extends React.Component {
                     onChange = {this.handleChange}
                     value = {this.state.email}
                     />
+                    <label>email</label>
+                    </div>
+                    <div className = {Styles.formGroup}>
                     <input
                     type = "password"
                     name = "password"
@@ -115,6 +131,9 @@ class Login extends React.Component {
                     placeholder = "enter password"
                     value = {this.state.password}
                     />
+                    <label>password</label>
+                    </div>
+                    <div className = {Styles.formGroup}>
                     <input
                     type = "name"
                     name = "name"
@@ -123,9 +142,10 @@ class Login extends React.Component {
                     placeholder = "Full Name"
                     value = {this.state.name}
                     />
-                    <button onClick={this.signUp}>Sign Up</button>
-                    <button onClick = {this.goToLogin}>Login</button>
-                </form>
+                    <label>full name</label>
+                    </div>
+                    <button className={Styles.loginBtn} onClick={this.signUp}>Sign Up</button>
+                    <button className={Styles.signUpBtn} onClick = {this.goToLogin}>Login</button>
                </div>
                
                }

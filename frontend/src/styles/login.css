@@ -1,0 +1,106 @@
+.holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 200px;
+    height: 65px;
+}
+
+.header {
+    font-size: 35px;
+    padding-bottom: 20px;
+    
+}
+
+.componentHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    color: #254373;
+    font-size: 15px;
+    width: 350px;
+    /* height: 600px; */
+}
+
+.formGroup {
+    position: relative;
+    padding: 15px 0 0;
+    margin-bottom: 50px;
+    width: 80%;
+  }
+
+  .formGroup label{
+    position:absolute;
+    top:0px;
+    left:0px;
+    font-size:16px;
+    color:#254373;	
+    transition: all 0.5s ease-in-out;
+  }
+  .formGroup input{ 
+    border:0;
+    border-bottom:1px solid #555;  
+    background:transparent;
+    width:100%;
+    padding:3px 0 5px 0;
+    font-size:16px;
+    color:#434547;
+  }
+  .formGroup input:focus{ 
+   border:none;	
+   outline:none;
+   border-bottom:1px solid #254373;	
+  }
+
+  .formGroup input:focus ~ label,
+  .formGroup {
+	top:-12px;
+	font-size:12px;
+	
+}
+
+.loginBtn {
+    background-color: #254373;
+    border: none;
+    color: whitesmoke;
+    padding: 10px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.loginBtn:focus {
+    outline: none;
+}
+
+.loginBtn:active {
+    opacity: 0.5;
+}
+
+.signUpBtn {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    padding-top: 100px;
+}
+
+.signUpBtn:focus {
+    outline: none;
+}
+
+.signUpBtn:active {
+    opacity: 0.5;
+}

@@ -1,0 +1,17 @@
+.componentHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 200px;
+    height: 65px;
+}
+
+.header {
+    font-size: 35px;
+    font-family: 'Roboto';
+    color: #254373;
+}

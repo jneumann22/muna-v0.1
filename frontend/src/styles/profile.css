@@ -1,0 +1,74 @@
+.componentHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    color: #254373;
+    font-size: 15px;
+}
+
+.logo{
+    width: 200px;
+    height: 65px;
+
+}
+
+.profileHeader {
+    font-family: 'Roboto';
+    font-size: 30px;
+    color: #254373;
+    padding-bottom: 25px;
+}
+
+.signOutBtn {
+    background-color: #254373;
+    border: none;
+    color: whitesmoke;
+    padding: 10px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.signOutHldr {
+    padding-top: 25px;
+}
+
+.signOutBtn:focus {
+    outline: none;
+}
+
+.signOutBtn:active {
+    opacity: 0.5;
+}
+
+.homeHldr {
+    padding-top: 80px;
+}
+
+.homeBtn {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    
+}
+
+.homeBtnIcon {
+    width: 45px;
+    height: 45px;
+}
+
+.homeBtn:focus {
+    outline: none;
+}
+.homeBtn:active {
+    opacity: 0.5;
+}
