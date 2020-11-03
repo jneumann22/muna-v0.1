@@ -1,6 +1,8 @@
 var Item = require('../models/Item');
 
 exports.createItem = function(req, res) {
+    let tagArray = req.body.tags.split(', ')
+
     let item = {
         uid: req.body.uid,
         name: req.body.itemName,

@@ -5,7 +5,8 @@ const mongoURl = require('./database')
 const uri = mongoURl.url;
 const cors = require('cors')
 var AuthController = require('./controllers/AuthController');
-var ItemController = require('./controllers/ItemController')
+var ItemController = require('./controllers/ItemController');
+var UserController = require('./controllers/UserController');
 
 
 
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 
 app.post('/CreateUser', AuthController.registerUser)
 app.post('/CreateItem', ItemController.createItem)
+app.get('/getUserInfo/:id', UserController.getUserInfo)
 app.get('/getWishList/:id', ItemController.getWishlist)
 
 app.listen(port, () => console.log(`Listening on Port ${port}`));

@@ -14,10 +14,14 @@ const ItemSchema = mongoose.Schema({
         required: false,
     },
     tags: {
-        type: String,
+        type: Array,
         required: false,
     },
     url: {
+        type: String,
+        required: false,
+    },
+    category: {
         type: String,
         required: false,
     },
