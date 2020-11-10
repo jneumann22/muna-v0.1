@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import NewHome from "./components/NewHome";
 import background from "../assets/background.png"
+import Categories from "./components/Categories";
 
 
 
@@ -60,7 +61,7 @@ class App extends React.Component {
         } else if (this.state.attemptedLogin) {
         return (
             <div style = {{backgroundImage: `url(${background})`, width: '360px', height: '600px'}}>
-                {this.state.user  ? (<NewHome user= {this.state.user}/>) : (<Login/>)}
+                {this.state.user  ? (<Categories user= {this.state.user}/>) : (<Login/>)}
             </div>
         )
         }

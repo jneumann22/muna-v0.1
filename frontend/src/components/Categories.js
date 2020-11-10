@@ -9,30 +9,80 @@ import gift from '../../assets/gift.png'
 import furniture from '../../assets/furniture.png'
 import other from '../../assets/other.png'
 import { Spring }  from 'react-spring/renderprops'
-import {IoMdArrowRoundBack} from 'react-icons/io'
+import axios from 'axios';
+import fire from '../../config/fire';
+import {CgProfile} from 'react-icons/cg'
 
 import IndividualCategory from './IndividualCategory'
+import Profile from './Profile';
 
+let localApi = "http://localhost:5000"
 
 class Categories extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            categoryPage: "Home"
+            categoryPage: "Home",
+            user: null,
+            items: null,
+            noOfItems: 0
         }
 
        this.changePage = this.changePage.bind(this)
        this.backHome = this.backHome.bind(this)
+       this.getUserInfo = this.getUserInfo.bind(this)
+       this.getItems = this.getItems.bind(this)
+       this.setTotalItems = this.setTotalItems.bind(this)
+       this.goToProfile = this.goToProfile.bind(this)
     }
 
     componentDidMount() {
         console.log(this.props)
+        this.getUserInfo(this.props.user.uid)
+        this.getItems()
+    }
+
+    getUserInfo(id) {
+        console.log(id)
+        axios.get(`${localApi}/getUserInfo/${id}`).then((data) => {
+            console.log('WHATD WE GET', data.data.data[0])
+            this.setState({
+                user: data.data.data[0]
+            })
+        })
+    }
+
+    getItems() {
+        console.log("GET ITEMS CALLED")
+        axios.get(`${localApi}/getWishList/${this.props.user.uid}`).then((data) => {
+            console.log('Items', data.data)
+            this.setState({
+                items: data.data.data
+            }, this.setTotalItems)
+        })
+    }
+
+    setTotalItems() {
+        console.log(this.state.items.length)
+        this.setState({
+            noOfItems: this.state.items.length
+        })
+    }
+
+    logout() {
+        fire.auth().signOut()
     }
 
     changePage(e) {
         console.log(e.target.name)
         this.setState({
             categoryPage: e.target.name
+        })
+    }
+
+    goToProfile() {
+        this.setState({
+            categoryPage: "Profile"
         })
     }
 
@@ -51,17 +101,9 @@ class Categories extends React.Component {
             
             
             <div className = {Styles.containerLogo}>         
-        <IoMdArrowRoundBack onClick={this.props.backToHome}className={`${Styles.containerElem} ${Styles.arrow}`}/>
+        <div className={`${Styles.containerElem}`}/>
         <img className = {`${Styles.containerElem} ${Styles.logo}`}src = {logo} />
-                <div className={`${Styles.containerElem}`}></div>
-            </div>
-
-            <div className= {Styles.container}>
-                <h1 className={Styles.header}>categories</h1>
-            </div>
-
-            <div className = {Styles.addIcon}>
-                <img className = {Styles.addIconImg} src = {add}/>
+                <div className={`${Styles.containerElem}`}><CgProfile onClick={this.goToProfile} className={Styles.profile}/></div>
             </div>
 
             {/* 6 Icons   */}
@@ -75,9 +117,9 @@ class Categories extends React.Component {
                 <button className={Styles.categoryButton} onClick = {this.changePage} ><img name = "Athleisure" className = {Styles.catImage} src={workout}/></button>
                 <button className={Styles.categoryButton}  onClick = {this.changePage}><img name = "Workwear" className = {Styles.catImage} src = {workClothes}/></button>
                 <button className={Styles.categoryButton}  onClick = {this.changePage}><img name = "Party" className = {Styles.catImage} src = {party}/></button>
-                <button className={Styles.categoryButton} onClick = {this.changePage}><img name = "Gifts" className = {Styles.catImage} src = {gift}/></button>
-                <button className={Styles.categoryButton} onClick = {this.changePage}><img name = "Furniture" className = {Styles.catImage} src = {furniture}/></button>
-                <button className={Styles.categoryButton} onClick = {this.changePage}><img name = "Other" className = {Styles.catImage} src = {other}/></button>
+                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Gifts" className = {Styles.catImage} src = {gift}/></button>
+                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Furniture" className = {Styles.catImage} src = {furniture}/></button>
+                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Other" className = {Styles.catImage} src = {other}/></button>
             </div>
           </div>
                 )}
@@ -235,7 +277,12 @@ class Categories extends React.Component {
                         
                         </Spring>
                     )
+                } else if (this.state.categoryPage === "Profile") {
+                    return (
+                    <Profile user ={this.state.user} itemTotal = {this.state.noOfItems} logout={() => this.logout()} backToHome = {() => this.backHome()}/>
+                    )
                 }
+
     }
 
 }

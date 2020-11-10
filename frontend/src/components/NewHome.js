@@ -122,7 +122,7 @@ class NewHome extends React.Component {
                 <div className = {styles.horizontalPlane}>
                 {/* List Button */}
                     <div>
-                <button className = {styles.homeButton}><img className = {styles.homeImage} src={list}></img></button>
+                <button onClick = {this.switchToListPage} className = {styles.homeButton}><img className = {styles.homeImage} src={list}></img></button>
                     </div>
                {/* Profile Button */}
                     <div>
@@ -148,6 +148,10 @@ class NewHome extends React.Component {
         } else if (this.state.page === "Profile") {
             return (
                 <Profile user ={this.state.user} itemTotal = {this.state.noOfItems} logout={() => this.logout()} backToHome = {() => this.backToHomePage()}/>
+            )
+        } else if (this.state.page === "List") {
+            return (
+            <ItemList />
             )
         }
     }
