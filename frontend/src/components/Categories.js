@@ -16,6 +16,7 @@ import CategoryButton from '../helperComponents/CategoryButton'
 import IndividualCategory from './IndividualCategory'
 import Profile from './Profile';
 import ItemModal from './ItemModal';
+import ItemList from './ItemList';
 
 let localApi = "http://localhost:5000"
 
@@ -31,7 +32,10 @@ class Categories extends React.Component {
             noOfItems: 0,
             flipped: false,
             isOpen: false,
-            category: ""
+            isItemOpen: false,
+            category: "",
+            filteredItems: []
+
         }
 
        this.changePage = this.changePage.bind(this)
@@ -42,6 +46,8 @@ class Categories extends React.Component {
        this.goToProfile = this.goToProfile.bind(this)
        this.toggleModal = this.toggleModal.bind(this)
        this.setCategory = this.setCategory.bind(this)
+       this.toggleItemList = this.toggleItemList.bind(this)
+       this.filterItems = this.filterItems.bind(this)
        
 
     }
@@ -50,7 +56,7 @@ class Categories extends React.Component {
     componentDidMount() {
         console.log(this.props)
         this.getUserInfo(this.props.user.uid)
-        this.getItems()
+        
     }
 
     getUserInfo(id) {
@@ -59,19 +65,23 @@ class Categories extends React.Component {
             console.log('WHATD WE GET', data.data.data[0])
             this.setState({
                 user: data.data.data[0]
-            })
+            }, function () { this.getItems(this.state.user._id) }
+            
+            )
         })
     }
 
-    getItems() {
+    getItems(user_id) {
         console.log("GET ITEMS CALLED")
-        axios.get(`${localApi}/getWishList/${this.props.user.uid}`).then((data) => {
+        axios.get(`${localApi}/getWishList/${user_id}`).then((data) => {
             console.log('Items', data.data)
             this.setState({
                 items: data.data.data
             }, this.setTotalItems)
         })
     }
+
+
 
     setTotalItems() {
         console.log(this.state.items.length)
@@ -92,9 +102,19 @@ class Categories extends React.Component {
     }
 
     setCategory(category) {
+        console.log("SET CATEGORY CALLED")
         this.setState({
             category: category
-        }, console.log(this.state))
+        }, this.filterItems(category))
+    }
+
+    filterItems(category) {
+        console.log("FILTERED CALLED")
+        let items = this.state.items
+        const result = items.filter(item => item.category === category);
+        this.setState({
+            filteredItems: result
+        }, function() {console.log("items filtered::", this.state.filteredItems)})
     }
 
     goToProfile() {
@@ -116,8 +136,15 @@ class Categories extends React.Component {
         })
     }
 
+    toggleItemList() {
+        console.log("toggle item pressed")
+        this.setState({
+            isItemOpen: !this.state.isItemOpen
+        })
+    }
+
     render() {
-        var holderClass = this.state.isOpen ? `${Styles.hide}` : `${Styles.categoryHolder}`
+        var holderClass = this.state.isOpen || this.state.isItemOpen ? `${Styles.hide}` : `${Styles.categoryHolder}`
         if (this.state.categoryPage === "Home") {
 
         
@@ -141,18 +168,12 @@ class Categories extends React.Component {
                 { props => (
                     <div style={props}>
              <div className = {holderClass}>
-                {/* <button className={Styles.categoryButton} onClick={this.changePage}><img name = "Athleisure" className = {Styles.catImage} src={workout}/></button> */}
-                <CategoryButton number =  {Styles.front1} name = 'athleisure' openModal = {this.toggleModal} category='Athleisure' setCategory = {this.setCategory}/>
-                <CategoryButton number = {Styles.front2} name = 'work clothes' openModal = {this.toggleModal} category='Work Clothes' setCategory = {this.setCategory}/>
-                <CategoryButton number = {Styles.front3} name = 'going out' openModal = {this.toggleModal} category='Going Out' setCategory = {this.setCategory}/>
-                <CategoryButton number = {Styles.front4} name = 'gifts' openModal = {this.toggleModal} category='Gifts' setCategory = {this.setCategory}/>
-                <CategoryButton number = {Styles.front5} name = 'furtniture' openModal = {this.toggleModal} category= 'Furniture' setCategory = {this.setCategory}/>
-                <CategoryButton number = {Styles.front6} name = 'other' openModal = {this.toggleModal} category= 'Other' setCategory = {this.setCategory}/>
-                {/* <button className={Styles.categoryButton}  onClick = {this.changePage}><img name = "Workwear" className = {Styles.catImage} src = {workClothes}/></button>
-                <button className={Styles.categoryButton}  onClick = {this.changePage}><img name = "Party" className = {Styles.catImage} src = {party}/></button>
-                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Gifts" className = {Styles.catImage} src = {gift}/></button>
-                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Furniture" className = {Styles.catImage} src = {furniture}/></button>
-                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Other" className = {Styles.catImage} src = {other}/></button> */}
+                <CategoryButton number =  {Styles.front1} name = 'athleisure' toggle_item_list  = {this.toggleItemList} openModal = {this.toggleModal} category='Athleisure' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front2} name = 'work clothes'toggle_item_list = {this.toggleItemList} openModal = {this.toggleModal} category='Work Clothes' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front3} name = 'going out'toggle_item_list = {this.toggleItemList} openModal = {this.toggleModal} category='Going Out' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front4} name = 'gifts'toggle_item_list = {this.toggleItemList} openModal = {this.toggleModal} category='Gifts' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front5} name = 'furtniture'toggle_item_list = {this.toggleItemList} openModal = {this.toggleModal} category= 'Furniture' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front6} name = 'other'toggle_item_list = {this.toggleItemList} openModal = {this.toggleModal} category= 'Other' setCategory = {this.setCategory}/>
             </div>
           </div>
                 )}
@@ -164,160 +185,20 @@ class Categories extends React.Component {
                   toggleModal = {this.toggleModal} 
                   category={this.state.category}
                   reloadItems = {this.getItems}
-                  user = {this.props.user}
+                  user = {this.state.user}
                   /> :
+                    <div></div>
+                }
+                {this.state.isItemOpen ? <ItemList 
+                name = {this.state.category}
+                items = {this.state.filteredItems}
+                toggleItemList = {this.toggleItemList}
+                /> :
                     <div></div>
                 }
 
             </div>
         )
-                } else if (this.state.categoryPage === "Athleisure") {
-                    return (
-                        <Spring
-                        from = {{marginLeft: -1000}}
-                        to = {{marginLeft: 0}}
-                        >
-                            {props => (
-                                <div style = {props}>
-
-                        <div>
-                            <IndividualCategory 
-                            backToMain = {this.props.backToHome}
-                             backHome={() => this.backHome()} 
-                             text="Athleisure" image ={workout} 
-                             user={this.props.user} 
-                             reloadItems = {this.props.reloadItems}
-                             />
-                        </div>
-
-                                </div>
-                            )}
-                        
-                        </Spring>
-                    )
-                } else if (this.state.categoryPage === "Workwear") {
-                    return (
-                        <Spring
-                        from = {{marginLeft: -1000}}
-                        to = {{marginLeft: 0}}
-                        >
-                            {props => (
-                                <div style = {props}>
-
-                        <div>
-                            <IndividualCategory
-                             backToMain = {this.props.backToHome}
-                              backHome={() => this.backHome()} 
-                              text="Workwear" 
-                              image ={workClothes} 
-                              user={this.props.user}
-                              reloadItems = {this.props.reloadItems}
-                              />
-                        </div>
-
-                                </div>
-                            )}
-                        
-                        </Spring>
-                    )
-                }else if (this.state.categoryPage === "Party") {
-                    return (
-                        <Spring
-                        from = {{marginLeft: -1000}}
-                        to = {{marginLeft: 0}}
-                        >
-                            {props => (
-                                <div style = {props}>
-
-                        <div>
-                            <IndividualCategory 
-                            backToMain = {this.props.backToHome}
-                             backHome={() => this.backHome()} 
-                             text="Going-out" image ={party} 
-                             user={this.props.user} 
-                             reloadItems = {this.props.reloadItems}
-                             />
-                        </div>
-
-                                </div>
-                            )}
-                        
-                        </Spring>
-                    )
-                }else if (this.state.categoryPage === "Gifts") {
-                    return (
-                        <Spring
-                        from = {{marginLeft: -1000}}
-                        to = {{marginLeft: 0}}
-                        >
-                            {props => (
-                                <div style = {props}>
-
-                        <div>
-                            <IndividualCategory 
-                            backToMain = {this.props.backToHome}
-                             backHome={() => this.backHome()}
-                              text="Gifts" image ={gift}
-                               user={this.props.user} 
-                               reloadItems = {this.props.reloadItems}
-                               />
-                        </div>
-
-                                </div>
-                            )}
-                        
-                        </Spring>
-                    )
-                }else if (this.state.categoryPage === "Furniture") {
-                    return (
-                        <Spring
-                        from = {{marginLeft: -1000}}
-                        to = {{marginLeft: 0}}
-                        >
-                            {props => (
-                                <div style = {props}>
-
-                        <div>
-                            <IndividualCategory
-                             backToMain = {this.props.backToHome}
-                              backHome={() => this.backHome()}
-                               text="Furniture"
-                                image ={furniture} 
-                                user={this.props.user}
-                                reloadItems = {this.props.reloadItems}
-                                />
-                        </div>
-
-                                </div>
-                            )}
-                        
-                        </Spring>
-                    )
-                }else if (this.state.categoryPage === "Other") {
-                    return (
-                        <Spring
-                        from = {{marginLeft: -1000}}
-                        to = {{marginLeft: 0}}
-                        >
-                            {props => (
-                                <div style = {props}>
-
-                        <div>
-                            <IndividualCategory
-                             backToMain = {this.props.backToHome}
-                              backHome={() => this.backHome()} 
-                              text="Other" 
-                              image ={other} 
-                              user={this.props.user}
-                              reloadItems = {this.props.reloadItems}
-                              />
-                        </div>
-
-                                </div>
-                            )}
-                        
-                        </Spring>
-                    )
                 } else if (this.state.categoryPage === "Profile") {
                     return (
                     <Profile user ={this.state.user} itemTotal = {this.state.noOfItems} logout={() => this.logout()} backToHome = {() => this.backHome()}/>

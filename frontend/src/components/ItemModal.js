@@ -49,9 +49,10 @@ class ItemModal extends React.Component {
       //     items: itemList
       // })
       console.log('shmategory', category)
+      console.log("CAN I GET THAT",this.props)
 
       axios.post(`${localApi}/CreateItem`, {
-          uid: this.props.user.uid,
+          _id: this.props.user._id,
           itemName : name,
           tags: tags,
           url: "",
@@ -127,7 +128,7 @@ class ItemModal extends React.Component {
               <div className={Styles.modalContainerTwo}>
                 <div className= {Styles.successDiv}>
                   <p className = {Styles.successMsg}>The Item was added to your MunaList!</p>
-                  <button className = {Styles.successBtn} onClick= {() => {this.props.toggleModal(); this.props.reloadItems()}}>Home</button>
+                  <button className = {Styles.successBtn} onClick= {() => {this.props.toggleModal(); this.props.reloadItems(this.props.user._id)}}>Home</button>
                   </div>     
               
               </div>

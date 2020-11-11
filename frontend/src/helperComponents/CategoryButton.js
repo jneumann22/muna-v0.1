@@ -19,6 +19,7 @@ export default function CategoryButton(props) {
 
       let toggleModal = props.openModal
       let setCategory = props.setCategory
+      let toggle_item_list = props.toggle_item_list
      
 
     return (
@@ -33,7 +34,7 @@ export default function CategoryButton(props) {
                 <p className = {Styles.buttonText}>add item</p>
                 </div>
                 <div className = {Styles.buttonAlign}>
-                <BsListTask className = {Styles.list}/>
+                <BsListTask className = {Styles.list} onClick = {toggle_item_list}/>
                 <p className = {Styles.buttonText}>my list</p>
                 </div>
                 </div>
