@@ -12,11 +12,14 @@ import { Spring }  from 'react-spring/renderprops'
 import axios from 'axios';
 import fire from '../../config/fire';
 import {CgProfile} from 'react-icons/cg'
-
+import CategoryButton from '../helperComponents/CategoryButton'
 import IndividualCategory from './IndividualCategory'
 import Profile from './Profile';
+import ItemModal from './ItemModal';
 
 let localApi = "http://localhost:5000"
+
+
 
 class Categories extends React.Component {
     constructor(props) {
@@ -25,7 +28,10 @@ class Categories extends React.Component {
             categoryPage: "Home",
             user: null,
             items: null,
-            noOfItems: 0
+            noOfItems: 0,
+            flipped: false,
+            isOpen: false,
+            category: ""
         }
 
        this.changePage = this.changePage.bind(this)
@@ -34,8 +40,13 @@ class Categories extends React.Component {
        this.getItems = this.getItems.bind(this)
        this.setTotalItems = this.setTotalItems.bind(this)
        this.goToProfile = this.goToProfile.bind(this)
+       this.toggleModal = this.toggleModal.bind(this)
+       this.setCategory = this.setCategory.bind(this)
+       
+
     }
 
+    
     componentDidMount() {
         console.log(this.props)
         this.getUserInfo(this.props.user.uid)
@@ -80,6 +91,12 @@ class Categories extends React.Component {
         })
     }
 
+    setCategory(category) {
+        this.setState({
+            category: category
+        }, console.log(this.state))
+    }
+
     goToProfile() {
         this.setState({
             categoryPage: "Profile"
@@ -92,7 +109,15 @@ class Categories extends React.Component {
         })
     }
 
+    toggleModal() {
+        console.log("TOGGLE MODAL PRESSED")
+        this.setState({
+            isOpen: !this.state.isOpen
+        })
+    }
+
     render() {
+        var holderClass = this.state.isOpen ? `${Styles.hide}` : `${Styles.categoryHolder}`
         if (this.state.categoryPage === "Home") {
 
         
@@ -106,6 +131,8 @@ class Categories extends React.Component {
                 <div className={`${Styles.containerElem}`}><CgProfile onClick={this.goToProfile} className={Styles.profile}/></div>
             </div>
 
+           
+
             {/* 6 Icons   */}
             <Spring
             from = {{opacity: 0, marginTop: -1000}}
@@ -113,20 +140,34 @@ class Categories extends React.Component {
             >
                 { props => (
                     <div style={props}>
-             <div className = {Styles.categoryHolder}>
-                <button className={Styles.categoryButton} onClick = {this.changePage} ><img name = "Athleisure" className = {Styles.catImage} src={workout}/></button>
-                <button className={Styles.categoryButton}  onClick = {this.changePage}><img name = "Workwear" className = {Styles.catImage} src = {workClothes}/></button>
+             <div className = {holderClass}>
+                {/* <button className={Styles.categoryButton} onClick={this.changePage}><img name = "Athleisure" className = {Styles.catImage} src={workout}/></button> */}
+                <CategoryButton number =  {Styles.front1} name = 'athleisure' openModal = {this.toggleModal} category='Athleisure' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front2} name = 'work clothes' openModal = {this.toggleModal} category='Work Clothes' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front3} name = 'going out' openModal = {this.toggleModal} category='Going Out' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front4} name = 'gifts' openModal = {this.toggleModal} category='Gifts' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front5} name = 'furtniture' openModal = {this.toggleModal} category= 'Furniture' setCategory = {this.setCategory}/>
+                <CategoryButton number = {Styles.front6} name = 'other' openModal = {this.toggleModal} category= 'Other' setCategory = {this.setCategory}/>
+                {/* <button className={Styles.categoryButton}  onClick = {this.changePage}><img name = "Workwear" className = {Styles.catImage} src = {workClothes}/></button>
                 <button className={Styles.categoryButton}  onClick = {this.changePage}><img name = "Party" className = {Styles.catImage} src = {party}/></button>
                 <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Gifts" className = {Styles.catImage} src = {gift}/></button>
                 <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Furniture" className = {Styles.catImage} src = {furniture}/></button>
-                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Other" className = {Styles.catImage} src = {other}/></button>
+                <button className={`${Styles.categoryButton} ${Styles.categoryButtonBottom}`} onClick = {this.changePage}><img name = "Other" className = {Styles.catImage} src = {other}/></button> */}
             </div>
           </div>
                 )}
 
             </Spring>
 
-
+                {this.state.isOpen ? <ItemModal
+                 show = {true}
+                  toggleModal = {this.toggleModal} 
+                  category={this.state.category}
+                  reloadItems = {this.getItems}
+                  user = {this.props.user}
+                  /> :
+                    <div></div>
+                }
 
             </div>
         )

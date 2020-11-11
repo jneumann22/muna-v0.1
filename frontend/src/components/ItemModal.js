@@ -17,7 +17,7 @@ class ItemModal extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.clearState = this.clearState.bind(this)
         this.addItem = this.addItem.bind(this)
-        this.goHome = this.goHome.bind(this)
+
     }
 
 
@@ -38,10 +38,7 @@ class ItemModal extends React.Component {
         })
     }
 
-    goHome() {
-      this.props.backToMain()
-      
-    }
+  
 
 
     addItem(name, tags, category) {
@@ -117,7 +114,7 @@ class ItemModal extends React.Component {
       
                 <div className={Styles.footer}>
                 <button className = {Styles.addButton} onClick={() => { this.addItem(this.state.itemName, this.state.tags, this.props.category); this.clearState()}}>Add this Item</button>
-                  <button className={Styles.close} onClick={this.props.close}>
+                  <button className={Styles.close} onClick={this.props.toggleModal}>
                   <GrClose className = {Styles.goBack} />
                   </button>
                 </div>
@@ -130,7 +127,7 @@ class ItemModal extends React.Component {
               <div className={Styles.modalContainerTwo}>
                 <div className= {Styles.successDiv}>
                   <p className = {Styles.successMsg}>The Item was added to your MunaList!</p>
-                  <button className = {Styles.successBtn} onClick= {() => {this.props.backToMain(); this.props.reloadItems()}}>Home</button>
+                  <button className = {Styles.successBtn} onClick= {() => {this.props.toggleModal(); this.props.reloadItems()}}>Home</button>
                   </div>     
               
               </div>
