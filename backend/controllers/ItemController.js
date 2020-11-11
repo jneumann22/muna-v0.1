@@ -2,12 +2,13 @@ var Item = require('../models/Item');
 
 exports.createItem = function(req, res) {
     let tagArray = req.body.tags.split(', ')
-
+    console.log("WTF IS THIS ", req.body.category)
     let item = {
-        uid: req.body.uid,
+        user_id: req.body._id,
         name: req.body.itemName,
-        tags: req.body.tags,
-        url: req.body.url
+        tags: tagArray,
+        url: req.body.url,
+        category: req.body.category,
     }
     Item.create(item, function(err, item) {
         if(err) {
@@ -27,7 +28,7 @@ exports.createItem = function(req, res) {
 
 exports.getWishlist = function(req, res) {
    const uid =  req.params.id;
-   Item.find({uid: uid}, function(err, items) {
+   Item.find({user_id: uid}, function(err, items) {
     if(err) {
         console.error(err)
         if(err.name === "MongoError" && err.code === 11000) {
@@ -38,7 +39,7 @@ exports.getWishlist = function(req, res) {
     } else {
         var data = items
         console.log('data', data)
-        return res.json({code: 200, message: "saved successfully", data: data})
+        return res.json({code: 200, message: "Got the Item List", data: data})
     }
    })
 }

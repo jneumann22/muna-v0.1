@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 var SchemaTypes = mongoose.Schema.Types;
 
 const ItemSchema = mongoose.Schema({
-    uid: {
-        type: String,
+    user_id: {
+        type: Schema.Types.ObjectId, ref: 'User',
         required: true
     },
 
