@@ -4,10 +4,15 @@ import React from "react";
 import ReactDom from "react-dom";
 import fire from '../config/fire';
 import Login from './components/Login';
-import Home from './components/Home';
-import NewHome from "./components/NewHome";
 import background from "../assets/background.png"
 import Categories from "./components/Categories";
+import WebFont from 'webfontloader';
+
+WebFont.load({
+    google: {
+        families: ['Open Sans']
+    }
+})
 
 
 

@@ -1,0 +1,37 @@
+.holder_background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #d0d5e4;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.title {
+    color: black;
+    font-family: 'Open Sans';
+    margin-bottom: 8px;
+    margin-top: 5px;
+    font-size: 85%;
+}
+
+.tags {
+    color: black;
+    font-size: 12%;
+    font-family: 'Open Sans';
+}
+
+.date {
+    color: black;
+    font-size: 10%;
+    font-family: 'Open Sans';
+}
+

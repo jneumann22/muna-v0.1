@@ -18,6 +18,7 @@ import Profile from './Profile';
 import ItemModal from './ItemModal';
 import ItemList from './ItemList';
 
+
 let localApi = "http://localhost:5000"
 
 
@@ -189,7 +190,7 @@ class Categories extends React.Component {
                   /> :
                     <div></div>
                 }
-                {this.state.isItemOpen ? <ItemList 
+                {this.state.isItemOpen ? <ItemList
                 name = {this.state.category}
                 items = {this.state.filteredItems}
                 toggleItemList = {this.toggleItemList}

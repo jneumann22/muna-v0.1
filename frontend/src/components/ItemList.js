@@ -1,6 +1,8 @@
-import React from "react"
-import logo from "../../assets/muna2.png"
-import Styles from "../styles/itemList.css"
+import React from "react";
+import Styles from "../styles/itemList.css";
+import WishListItem from "../helperComponents/WishListItem";
+import {GrClose} from 'react-icons/gr'
+
 
 
 export default function ItemList(props) {
@@ -25,11 +27,15 @@ export default function ItemList(props) {
         
         <div className={Styles.modal}>
             <div className = {Styles.modal_container}>
-                HI THERE {props.name}
+                <p className = {Styles.title}>{props.name}</p>
+                <div className = {Styles.cell_container}>
+              
                 {props.items.map((item, index) => (
-        <p>Hello, {item.name} from {item.createdAt}</p>
-    ))}
-            <button onClick={props.toggleItemList}>CLOSE</button>
+                    <WishListItem item = {item}/>
+        // <p>Hello, {item.name} from {item.createdAt}</p>
+    ))}             
+                </div>
+            <button onClick={props.toggleItemList} className = {Styles.buttonClose}><GrClose className={Styles.close}/></button>
             </div>
            
 
