@@ -13,6 +13,16 @@
     margin-bottom: 10px;
     border-radius: 20px;
     padding: 5px;
+    cursor: pointer;
+}
+
+.holder_background:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.holder_background:active {
+    opacity: 0.5;
 }
 
 .title {

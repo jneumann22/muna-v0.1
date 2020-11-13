@@ -41,7 +41,7 @@ class ItemModal extends React.Component {
   
 
 
-    addItem(name, tags, category) {
+    addItem(name, tags, category, url) {
       // let newItem = {name: this.state.itemName, tags: this.state.tags, category: this.state.category}
       // let itemList = this.state.items
       // itemList.push(newItem)
@@ -55,7 +55,7 @@ class ItemModal extends React.Component {
           _id: this.props.user._id,
           itemName : name,
           tags: tags,
-          url: "",
+          url: url,
           category: category
       }).then(res => {
           console.log(res)
@@ -114,7 +114,7 @@ class ItemModal extends React.Component {
                    
       
                 <div className={Styles.footer}>
-                <button className = {Styles.addButton} onClick={() => { this.addItem(this.state.itemName, this.state.tags, this.props.category); this.clearState()}}>Add this Item</button>
+                <button className = {Styles.addButton} onClick={() => { this.addItem(this.state.itemName, this.state.tags, this.props.category, this.props.url); this.clearState()}}>Add this Item</button>
                   <button className={Styles.close} onClick={this.props.toggleModal}>
                   <GrClose className = {Styles.goBack} />
                   </button>

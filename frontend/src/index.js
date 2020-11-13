@@ -14,32 +14,48 @@ WebFont.load({
     }
 })
 
-
+var myUrl = ''
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
             user: null,
-            attemptedLogin: false
+            attemptedLogin: false,
+            url: null
         }
         this.attemptedLogin = this.attemptedLogin.bind(this)
+        this.setUrl = this.setUrl.bind(this)
     }
 
     componentDidMount() {
         this.authListener();
+        
+        // Below Needs to be Removed For Web Build
+        chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+           var currentUrl = tabs[0].url;
+            console.log("YO MAMA", currentUrl)
+           myUrl = currentUrl
+           console.log("MY MAMA", myUrl)
+          
+         });
 
-        //Below Needs to be Removed For Web Build
-        // chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-        //    var currentUrl = tabs[0].url;
-        //     console.log(currentUrl)
-        //  });
+        
+         
     
+    }
+
+    setUrl(url) {
+        console.log("WHAT IS THE URL:::", url)
+        this.setState({
+            url: url
+        }, this.authListener)
     }
 
     attemptedLogin() {
         this.setState({
-            attemptedLogin: true
+            attemptedLogin: true,
+            url: myUrl
         })
     }
 
@@ -66,7 +82,7 @@ class App extends React.Component {
         } else if (this.state.attemptedLogin) {
         return (
             <div style = {{backgroundImage: `url(${background})`, width: '360px', height: '600px'}}>
-                {this.state.user  ? (<Categories user= {this.state.user}/>) : (<Login/>)}
+                {this.state.user  ? (<Categories user= {this.state.user} url = {this.state.url}/>) : (<Login/>)}
             </div>
         )
         }

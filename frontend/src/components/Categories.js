@@ -1,19 +1,11 @@
 import React from 'react'
 import logo from  '../../assets/muna2.png'
 import Styles from '../styles/categories.css'
-import add from '../../assets/add-icon.png'
-import workout from '../../assets/workout.png'
-import workClothes from '../../assets/workClothes.png'
-import party  from '../../assets/party.png'
-import gift from '../../assets/gift.png'
-import furniture from '../../assets/furniture.png'
-import other from '../../assets/other.png'
 import { Spring }  from 'react-spring/renderprops'
 import axios from 'axios';
 import fire from '../../config/fire';
 import {CgProfile} from 'react-icons/cg'
 import CategoryButton from '../helperComponents/CategoryButton'
-import IndividualCategory from './IndividualCategory'
 import Profile from './Profile';
 import ItemModal from './ItemModal';
 import ItemList from './ItemList';
@@ -55,7 +47,7 @@ class Categories extends React.Component {
 
     
     componentDidMount() {
-        console.log(this.props)
+        console.log("MO BAMBA", this.props)
         this.getUserInfo(this.props.user.uid)
         
     }
@@ -187,6 +179,7 @@ class Categories extends React.Component {
                   category={this.state.category}
                   reloadItems = {this.getItems}
                   user = {this.state.user}
+                  url = {this.props.url}
                   /> :
                     <div></div>
                 }

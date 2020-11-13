@@ -1,3 +1,5 @@
+/* global chrome */
+
 import React from "react";
 import Styles from '../styles/wishList.css'
 
@@ -24,9 +26,13 @@ export default function WishListItem(props) {
         return new Date(dateString).toLocaleDateString(undefined, options)
       }
 
+      function goToUrl(url) {
+          
+      }
+
 
     return (
-        <div className = {Styles.holder_background}>
+        <div onClick={() => chrome.tabs.create({url: props.item.url})} className = {Styles.holder_background}>
             <div className = {Styles.title}>
                 {props.item.name}
             </div>
